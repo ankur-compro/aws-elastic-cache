@@ -59,6 +59,6 @@ function getData() {
   var val = Date.now();
   client_get.get('ka_no', function(err, data) {
     if(err) { console.log('error while getting', err); }
-    else { console.log('val got: ' + data);
+    else { console.log('val got: ' + data); }
   });
 }
