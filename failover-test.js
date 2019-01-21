@@ -29,6 +29,7 @@ client_set.on("error", function (err) {
 
 client_get.on("error", function (err) {
     console.log("Error_ get " + err);
+    setInterval(function() { getData()  }, 200);
 });
 
 client_set.on('connect', function() {
@@ -38,26 +39,26 @@ client_set.on('connect', function() {
 
 client_get.on('connect', function() {
   console.log('Redis connect event get');
-  setInterval(function() { getData()  }, 200);
 });
 
 var counter_set = 0, counter_get=0;
+var latSet;
 function setData() {
   var val = Date.now();
   counter_set++;
   client_set.set('ka_no', val, function(err) {
-    if(err) {  console.log('error while setting: ' + val + ' - ', err); }
-    else { console.log('value set: ' + val); }
-    console.log('counter_set: ' + counter_set)
+    if(err) {  
+      console.log('latSet: ' + latSet);
+      console.log('error while setting: ' + val + ' - ', err); 
+    }
+    else { latSet = val; }
   });
 }
 
 function getData() {
   var val = Date.now();
-  counter_get++;
   client_get.get('ka_no', function(err, data) {
     if(err) { console.log('error while getting', err); }
-    else { console.log('value got: ' + data); }
-    console.log('counter_get: ' + counter_get)
+    else { console.log('val got: ' + data);
   });
 }
