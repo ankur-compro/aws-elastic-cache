@@ -42,7 +42,7 @@ client.keys('*',function(err, serviceKeys) {
       console.log(err);
       console.log('value');
       console.log(value);
-      centralConfigData[key] = value;
+      centralConfigData[serviceKeys[key]] = value;
       console.log('centralConfigData');
       console.log(centralConfigData);
     })
