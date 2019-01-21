@@ -35,8 +35,6 @@ client.on('end', function() {
 
 client.keys('*',function(err, serviceKeys) {
   for(var key in serviceKeys) {
-    
-    centralConfigData[serviceKeys[key]] = undefined;
     client.get(serviceKeys[key], function(err, value) {
       console.log('err');
       console.log(err);
