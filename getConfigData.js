@@ -10,7 +10,7 @@ var counter = 0, loopCounter = 0;
 
 console.log('Creating Multiple Redis Clients');
 
-var centralConfigData = {};
+var centralConfigData = {}, serviceKeys;
 
 var client = redis.createClient(options.port, options.host);
 client.on("error", function (err) {
@@ -34,7 +34,7 @@ client.on('end', function() {
 });
 
 client.keys('*',function(err, serviceKeys) {
-  var serviceKeys = serviceKeys;
+  serviceKeys = serviceKeys;
 })
 
 for(var key in serviceKeys) {
