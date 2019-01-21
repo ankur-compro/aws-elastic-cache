@@ -2,7 +2,7 @@ var redis = require("redis");
 var fs = require('fs');
 
 var options = {
-  "host": "test-redis-02.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
+  "host": "test-redis-03.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
   "port": 6379,
   retry_strategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
@@ -33,7 +33,7 @@ client_get.on("error", function (err) {
 
 client_set.on('connect', function() {
   console.log('Redis connect event set');
-  set_ref = setInterval(function() { setData()  }, 100);
+  set_ref = setInterval(function() { setData()  }, 50);
 });
 
 client_get.on('connect', function() {
@@ -50,7 +50,7 @@ function setData() {
       console.log('latSet: ' + latSet);
       console.log('error while setting: ' + val + ' - ', err); 
       clearTimeout(set_ref);
-      get_ref = setInterval(function() { getData()  }, 100);
+      get_ref = setInterval(function() { getData()  }, 50);
     }
     else { latSet = val; }
   });
