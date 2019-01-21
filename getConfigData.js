@@ -10,6 +10,9 @@ var testOptions = {
   "host": "test-redis.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
   "port": 6379
 };
+
+var client = redis.createClient(options.port, options.host);
+
 var testClient = redis.createClient(testOptions.port, testOptions.host);
 
 client.on("error", function (err) {
