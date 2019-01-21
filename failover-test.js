@@ -2,7 +2,7 @@ var redis = require("redis");
 var fs = require('fs');
 
 var options = {
-  "host": "thor-user-tokens.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
+  "host": "test-redis.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
   "port": 6379,
   retry_strategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
