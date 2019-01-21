@@ -29,7 +29,7 @@ client_set.on("error", function (err) {
 
 client_get.on("error", function (err) {
     console.log("Error_ get " + err);
-    setInterval(function() { getData()  }, 200);
+    
 });
 
 client_set.on('connect', function() {
@@ -39,6 +39,7 @@ client_set.on('connect', function() {
 
 client_get.on('connect', function() {
   console.log('Redis connect event get');
+  setInterval(function() { getData()  }, 200);
 });
 
 var counter_set = 0, counter_get=0;
@@ -50,6 +51,7 @@ function setData() {
     if(err) {  
       console.log('latSet: ' + latSet);
       console.log('error while setting: ' + val + ' - ', err); 
+      clearTimeout(set_ref);
     }
     else { latSet = val; }
   });
