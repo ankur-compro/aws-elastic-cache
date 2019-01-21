@@ -36,10 +36,6 @@ client.on('end', function() {
 client.keys('*',function(err, serviceKeys) {
   for(var key in serviceKeys) {
     client.get(serviceKeys[key], function(err, value) {
-      console.log('err');
-      console.log(err);
-      console.log('value');
-      console.log(value);
       centralConfigData[serviceKeys[key]] = value;
       console.log('centralConfigData');
       console.log(centralConfigData);
