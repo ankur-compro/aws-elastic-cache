@@ -34,12 +34,14 @@ client.on('end', function() {
 });
 
 client.keys('*',function(err, serviceKeys) {
-  for(var key in serviceKeys) {
+  var serviceKeys = serviceKeys;
+})
+
+for(var key in serviceKeys) {
     client.get(serviceKeys[key], function(err, value) {
       centralConfigData[serviceKeys[key]] = value;
     })
   }
-})
 
 setInterval(function() {
   console.log('centralConfigData');
