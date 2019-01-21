@@ -23,7 +23,7 @@ var id = setInterval(function() {
   });
 
   client.on('ready', function() {
-    console.log('Redis ready event');
+    //console.log('Redis ready event');
     
     
     client.keys('*',function(err, serviceKeys) {
@@ -32,7 +32,7 @@ var id = setInterval(function() {
           for(var key in serviceKeys) {
             centralConfigData[serviceKeys[key]] = configValue[key];
           }
-          console.log(centralConfigData);
+          //console.log(centralConfigData);
           client.quit();
         })
       }
