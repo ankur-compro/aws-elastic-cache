@@ -23,7 +23,7 @@ var id = setInterval(function() {
   });
 
   client.on('ready', function() {
-    //console.log('Redis ready event');
+    console.log('Redis ready event');
     
     
     client.keys('*',function(err, serviceKeys) {
