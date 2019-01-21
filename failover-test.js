@@ -16,7 +16,7 @@ var options = {
 };
 
 console.log('Creating Redis Client');
-var set_ref;
+var set_ref, get_ref;
 
 var client_get = redis.createClient(options);
 var client_set = redis.createClient(options);
@@ -39,11 +39,10 @@ client_set.on('connect', function() {
 
 client_get.on('connect', function() {
   console.log('Redis connect event get');
-  setInterval(function() { getData()  }, 200);
 });
 
 var counter_set = 0, counter_get=0;
-var latSet;
+var latSet, karan;
 function setData() {
   var val = Date.now();
   counter_set++;
@@ -52,6 +51,7 @@ function setData() {
       console.log('latSet: ' + latSet);
       console.log('error while setting: ' + val + ' - ', err); 
       clearTimeout(set_ref);
+      get_ref = setInterval(function() { getData()  }, 200);
     }
     else { latSet = val; }
   });
@@ -61,6 +61,16 @@ function getData() {
   var val = Date.now();
   client_get.get('ka_no', function(err, data) {
     if(err) { console.log('error while getting', err); }
-    else { console.log('val got: ' + data); }
+    else { 
+      if(data.toString() == lastSet.toString()) {
+         clearTimeout(get_ref);
+         console.log('---------------time: ' + val, data, val-data);
+      }
+      else {
+        if(karan != data)
+          console.log('val got: ' + data); 
+         karan = data;
+      }
+    }
   });
 }
