@@ -33,12 +33,12 @@ client_get.on("error", function (err) {
 
 client_set.on('connect', function() {
   console.log('Redis connect event set');
-  set_ref = setInterval(function() { setDate()  }, 200);
+  set_ref = setInterval(function() { setData()  }, 200);
 });
 
 client_get.on('connect', function() {
   console.log('Redis connect event get');
-  setInterval(function() { getDate()  }, 200);
+  setInterval(function() { getData()  }, 200);
 });
 
 var counter_set = 0, counter_get=0;
