@@ -67,9 +67,11 @@ client.keys('*',function(err, serviceKeys) {
 
 
 
-testClient.mset(centralConfigData, function(err, res) {
+testClient.mset(centralConfigData, function(err, res, value) {
   console.log('err');
   console.log(err);
   console.log('res');
   console.log(res);
+  console.log('value');
+  console.log(value);
   })
