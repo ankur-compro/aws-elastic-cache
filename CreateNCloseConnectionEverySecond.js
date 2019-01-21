@@ -17,13 +17,13 @@ var id = setInterval(function() {
   });
 
   client.on('connect', function() {
-    console.log('Redis connect event');
-    counter++;
-    console.log('clients created : ' + counter);
+    //console.log('Redis connect event');
+    //counter++;
+    //console.log('clients created : ' + counter);
   });
 
   client.on('ready', function() {
-    console.log('Redis ready event');
+    //console.log('Redis ready event');
     
     
     client.keys('*',function(err, serviceKeys) {
@@ -45,6 +45,6 @@ var id = setInterval(function() {
   });
 
   client.on('end', function() {
-    console.log('Redis end event');
+    //console.log('Redis end event');
   });
  }, 1);
