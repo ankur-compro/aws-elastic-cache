@@ -32,6 +32,7 @@ var id = setInterval(function() {
           for(var key in serviceKeys) {
             centralConfigData[serviceKeys[key]] = configValue[key];
           }
+          client.quit();
         })
       }
     })
