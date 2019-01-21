@@ -55,7 +55,7 @@ function setData() {
 function getData() {
   var val = Date.now();
   counter_get++;
-  client_get.set('ka_no', function(err, data) {
+  client_get.get('ka_no', function(err, data) {
     if(err) { console.log('error while getting', err); }
     else { console.log('value got: ' + data); }
     console.log('counter_get: ' + counter_get)
