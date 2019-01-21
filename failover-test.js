@@ -23,7 +23,6 @@ var client_set = redis.createClient(options);
 
 client_set.on("error", function (err) {
     console.log("Error set " + err);
-    client_set.end(true); 
     clearTimeout(set_ref);
 });
 
