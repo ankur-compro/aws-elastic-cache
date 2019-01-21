@@ -54,12 +54,11 @@ testClient.on('end', function() {
   console.log('Redis end event');
 });
 
-client.keys('*',function(err, serviceKeys) {
+testClient.keys('*',function(err, serviceKeys) {
   for(var key in serviceKeys) {
-    client.mget(serviceKeys, function(err, configValue) {
+    testClient.mget(serviceKeys, function(err, configValue) {
       for(var key in serviceKeys) {
-        centralConfigData.push(serviceKeys[key]);
-        centralConfigData.push(configValue[key]);
+        centralConfigData[serviceKeys[key]] = configValue[key];
       }
     })
   }
@@ -67,11 +66,8 @@ client.keys('*',function(err, serviceKeys) {
 
 
 
-testClient.mset(centralConfigData, function(err, res, value) {
-  console.log('err');
-  console.log(err);
-  console.log('res');
-  console.log(res);
-  console.log('value');
-  console.log(value);
-  })
+setInterval(function() {
+  console.log('centralConfigData');
+  console.log(centralConfigData);
+  
+}, 2000);
