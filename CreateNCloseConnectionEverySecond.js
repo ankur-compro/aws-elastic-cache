@@ -6,7 +6,7 @@ var options = {
   "port": 6379
 };
 
-var counter = 0, loopCounter = 0;
+var counter = 0, loopCounter = 0, centralConfigData = {};
 
 console.log('Creating Redis Clients Every milli Second');
 
@@ -24,7 +24,20 @@ var id = setInterval(function() {
 
   client.on('ready', function() {
     console.log('Redis ready event');
-    console.log('Quitting Connection');
+    
+    
+    client.keys('*',function(err, serviceKeys) {
+      for(var key in serviceKeys) {
+        client.mget(serviceKeys, function(err, configValue) {
+          for(var key in serviceKeys) {
+            centralConfigData[serviceKeys[key]] = configValue[key];
+          }
+        })
+      }
+    })
+    
+    
+    //console.log('Quitting Connection');
     //setTimeout(function() {
      // client.quit();
       //counter--;
