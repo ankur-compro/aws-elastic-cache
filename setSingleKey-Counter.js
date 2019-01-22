@@ -37,11 +37,11 @@ console.log(redisKey);
 setInterval(function() {
   counter++;
   var timestamp = Date.now();
-  client.set(redisKey, timestamp, function(err, response) {
+  client.set(redisKey, counter, function(err, response) {
     if(err) {
       console.log(err);
     } else {
-      console.log('SET Redis Value : ' + timestamp);
+      console.log('SET Redis Value AT : ' + timestamp, counter);
     }
   });
   
