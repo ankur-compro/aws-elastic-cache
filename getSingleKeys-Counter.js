@@ -38,7 +38,7 @@ var intervalId = setInterval(function() {
         else {
             
             if(previousValue !== result) {
-                console.log('Received-' + Date.now() + ' === ' + result + ' : ' + timestamp, timestamp - parseInt(result));
+                console.log('Received-' + Date.now() + ' === Value ' + result);
                 previousValue = result;
             }
         }
