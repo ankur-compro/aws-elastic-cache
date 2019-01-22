@@ -2,7 +2,7 @@ var redis = require("redis");
 var fs = require('fs');
 
 var options = {
-  "host": "thor-transactions-001.dwnzoe.0001.usw2.cache.amazonaws.com",
+  "host": "test-redis.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
@@ -31,10 +31,10 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:PrimaryNodeTesting';
+var redisKey = 's:PrimaryNodeTesting:22Jan:1';
 console.log(redisKey);
  
-setInterval(function() {
+//setInterval(function() {
   counter++;
   client.set(redisKey, 's:singh:sharma' + counter, function(err, response) {
     if(err) {
@@ -45,4 +45,4 @@ setInterval(function() {
     }
   });
   
-}, 1000);
+//} , 1000);
