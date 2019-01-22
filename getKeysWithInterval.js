@@ -1,5 +1,5 @@
 var redis = require("redis");
-var timeout = 500; // = 1 sec, (in miliseconds)
+var timeout = 1; // = 1 sec, (in miliseconds)
 var counter = 0;
 
 var options = {
@@ -21,12 +21,12 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
-var redisKey = 's:ballu:anupam';
+var redisKey = 's:PrimaryNodeTesting:22Jan:1';
 
 
 
 console.log('GETting key - ' + redisKey);
-setInterval(function() {
+var intervalId = setInterval(function() {
     counter++;
     client.get(redisKey, function (error, result) {
         if (error) {
@@ -34,7 +34,8 @@ setInterval(function() {
           console.log(error);
         }
         else {
-            if(counter % 2 == 0) { console.log('Value: ' + result); }
+            console.log(result + ' : ' + Date.now());
+            clearInterval(intervalId);
         }
     });
 }, timeout);
