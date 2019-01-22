@@ -31,7 +31,7 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:PrimaryNodeTesting:22Jan:1';
+var redisKey = 's:PrimaryNodeTesting:22Jan:2';
 console.log(redisKey);
  
 setInterval(function() {
