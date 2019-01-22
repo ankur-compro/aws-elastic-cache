@@ -41,7 +41,7 @@ setInterval(function() {
     if(err) {
       console.log(err);
     } else {
-      console.log('Response timing: ' + timestamp, Date.now() - timestamp);
+      console.log('SET Redis Value : ' + timestamp);
     }
   });
   
