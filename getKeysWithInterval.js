@@ -28,14 +28,14 @@ var redisKey = 's:PrimaryNodeTesting:22Jan:1';
 console.log('GETting key - ' + redisKey);
 var intervalId = setInterval(function() {
     counter++;
+    var timestamp = Date.now();
     client.get(redisKey, function (error, result) {
         if (error) {
           console.log("ERROR at getting-----");
           console.log(error);
         }
         else {
-            console.log(result + ' : ' + Date.now());
-            clearInterval(intervalId);
+            console.log(result + ' : ' + timestamp, timestamp - parseInt(result));
         }
     });
 }, timeout);
