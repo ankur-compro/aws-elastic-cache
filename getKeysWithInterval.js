@@ -24,6 +24,7 @@ client.on('error', function (err) {
 var redisKey = 's:PrimaryNodeTesting:22Jan:1';
 
 
+var previousValue;
 
 console.log('GETting key - ' + redisKey);
 var intervalId = setInterval(function() {
@@ -35,7 +36,11 @@ var intervalId = setInterval(function() {
           console.log(error);
         }
         else {
-            console.log(result + ' : ' + timestamp, timestamp - parseInt(result));
+            
+            if(previousValue !== result) {
+                console.log('Received-' + Date.now() + ' === ' + result + ' : ' + timestamp, timestamp - parseInt(result));
+                previousValue = result;
+            }
         }
     });
 }, timeout);
