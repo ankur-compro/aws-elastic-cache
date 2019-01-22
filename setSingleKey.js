@@ -34,15 +34,15 @@ client.on('ready', function() {
 var redisKey = 's:PrimaryNodeTesting:22Jan:1';
 console.log(redisKey);
  
-//setInterval(function() {
+setInterval(function() {
   counter++;
-  client.set(redisKey, 's:singh:sharma' + counter, function(err, response) {
+  var timestamp = Date.now();
+  client.set(redisKey, timestamp, function(err, response) {
     if(err) {
       console.log(err);
     } else {
-      console.log('Response timing: ' + Date.now());
-      console.log(response);
+      console.log('Response timing: ' + timestamp, Date.now() - timestamp);
     }
   });
   
-//} , 1000);
+} , 10);
