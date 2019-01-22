@@ -21,7 +21,7 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
-var redisKey = 's:PrimaryNodeTesting:22Jan:1';
+var redisKey = 's:PrimaryNodeTesting:22Jan:2';
 
 
 var previousValue;
