@@ -28,11 +28,9 @@ client.keys('s:anal:*:analytics:user:*', function(err, keys) {
     console.log('err');
     console.log(err);
   }
-  console.log('keys');
-  console.log(keys);
-  console.log('keys.length');
+  console.log('Total Keys');
   console.log(keys.length);
-  //expireKey(keys);
+  expireKey(keys);
 });
 
 
