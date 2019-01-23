@@ -31,13 +31,13 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:PrimaryNodeTesting:22Jan:1';
+var redisKey = 's:PrimaryNodeTesting:23Jan:';
 console.log(redisKey);
  
 setInterval(function() {
   counter++;
   var timestamp = Date.now();
-  client.set(redisKey, timestamp, function(err, response) {
+  client.set(redisKey + counter, timestamp, function(err, response) {
     if(err) {
       console.log(err);
     } else {
@@ -45,4 +45,4 @@ setInterval(function() {
     }
   });
   
-} , 10);
+} , 1000);
