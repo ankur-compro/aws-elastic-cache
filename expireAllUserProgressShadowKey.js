@@ -44,8 +44,7 @@ function expireKey(keys) {
     else {
       var userProgressToExpire = 'i:' + userProgressKey;
       console.log('UserProgress Key which is going to expire: ' + userProgressToExpire);
-     expireKey(keys);
-      /*client.setex(userProgressToExpire, 1, '', function(err) {
+      client.setex(userProgressToExpire, 1, '', function(err) {
         if(err) {
           console.log('err');
           console.log(err);
@@ -55,7 +54,7 @@ function expireKey(keys) {
           console.log('Keys left to expire: ' + keys.length);
           setTimeout(function() { expireKey(keys); }, 5000);
         }
-      });*/
+      });
     }
   }
   else {
