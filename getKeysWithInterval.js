@@ -3,7 +3,7 @@ var timeout = 1000; // = 1 sec, (in miliseconds)
 var counter = 0;
 
 var options = {
-    'host': 'test-redis-02.dwnzoe.ng.0001.usw2.cache.amazonaws.com',
+    'host': 'test-redis-clustered.dwnzoe.ng.0001.usw2.cache.amazonaws.com',
     'port': 6379
 };
 
