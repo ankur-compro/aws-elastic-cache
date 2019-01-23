@@ -28,8 +28,11 @@ client.keys('s:anal:*:classrecord:*matrix', function(err, keys) {
     console.log('err');
     console.log(err);
   }
+  console.log('keys');
+  console.log(keys);
+  console.log('keys.length');
   console.log(keys.length);
-  expireKey(keys);
+  //expireKey(keys);
 });
 
 
