@@ -1,9 +1,9 @@
 var redis = require("redis");
-var timeout = 1; // = 1 sec, (in miliseconds)
+var timeout = 1000; // = 1 sec, (in miliseconds)
 var counter = 0;
 
 var options = {
-    'host': 'test-redis.dwnzoe.ng.0001.usw2.cache.amazonaws.com',
+    'host': 'test-redis-02.dwnzoe.ng.0001.usw2.cache.amazonaws.com',
     'port': 6379
 };
 
@@ -21,7 +21,7 @@ client.on('error', function (err) {
     console.log('Something went wrong ' + err);
 });
 
-var redisKey = 's:PrimaryNodeTesting:22Jan:1';
+var redisKey = 's:PrimaryNodeTesting:23Jan:1';
 
 
 var previousValue;
@@ -37,10 +37,10 @@ var intervalId = setInterval(function() {
         }
         else {
             
-            if(previousValue !== result) {
-                console.log('Received-' + Date.now() + ' === ' + result + ' : ' + timestamp, timestamp - parseInt(result));
+//            if(previousValue !== result) {
+                console.log('Received-' + Date.now() + ' === ' + result);
                 previousValue = result;
-            }
+//            }
         }
     });
 }, timeout);
