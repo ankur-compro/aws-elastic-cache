@@ -5,7 +5,7 @@ var redis = require("redis");
 
 //var _und = require('underscore');
 var options = {
-  "host": "thor-analytics.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
+  "host": "",
   "port": 6379
 };
 
@@ -23,7 +23,7 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-client.keys('s:anal:*:analytics:user:*', function(err, keys) {
+client.keys('s:anal:sh_alpha_cup1_1:analytics:user:*', function(err, keys) {
   if (err) {
     console.log('err');
     console.log(err);
@@ -50,9 +50,9 @@ function expireKey(keys) {
           console.log(err);
         }
         else {
-          console.log('Key: ' + userProgressToExpire + ' has expired.');
+          console.log('Key: ' + userProgressToExpire + ' is going to expire in 1 second.');
           console.log('Keys left to expire: ' + keys.length);
-          setTimeout(function() { expireKey(keys); }, 5000);
+          setTimeout(function() { expireKey(keys); }, 200);
         }
       });
     }
