@@ -23,7 +23,7 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-client.keys('s:anal:sh_alpha_cup1_1:analytics:user:*', function(err, keys) {
+client.keys('s:anal:integ-test1-alpha:analytics:user:*', function(err, keys) {
   if (err) {
     console.log('err');
     console.log(err);
