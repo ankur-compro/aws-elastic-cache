@@ -7,7 +7,7 @@ var options = {
 };
 
 console.log('Creating Redis Client');
-var client = redis.createClient(options.port, options.host);
+var client = redis.createClient(options);
 
 client.on("error", function (err) {
     console.log("Error " + err);
