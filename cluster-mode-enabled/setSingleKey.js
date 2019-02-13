@@ -1,7 +1,7 @@
 var redis = require("redis");
 
 var options = {
-  "host": "test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
+  "host": "test-cluster-enabled-0001-001.dwnzoe.0001.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
@@ -20,7 +20,7 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:cluster-enabled:config-url:1';
+var redisKey = 's:cluster-enabled:shard-1:1';
 console.log(redisKey);
  
 var timestamp = Date.now();
