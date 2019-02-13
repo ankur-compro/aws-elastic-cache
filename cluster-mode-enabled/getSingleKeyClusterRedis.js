@@ -34,7 +34,7 @@ setInterval(
         console.log('error while setting redis key');
         console.log(err);
       } else {
-        console.log('response : ' + response);
+        console.log('response : ' + Date.now() + ': ' + response);
       }
     });
 }, 1000);
