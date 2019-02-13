@@ -26,13 +26,14 @@ console.log(redisKey);
  
 var timestamp = Date.now();
 
-console.log('client');
-console.log(client);
-client.set(redisKey, timestamp, function(err, response) {
-  if(err) {
-    console.log('error while setting redis key');
-    console.log(err);
-  } else {
-    console.log('SET Redis Value : ' + timestamp);
-  }
-});
+setInterval(
+  function() {
+    redis.set(redisKey + ':' + Date.now(), timestamp, function(err, response) {
+      if(err) {
+        console.log('error while setting redis key');
+        console.log(err);
+      } else {
+        console.log('SET Redis Value : ' + timestamp);
+      }
+    });
+}, 1000);
