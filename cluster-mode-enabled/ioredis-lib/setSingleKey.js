@@ -2,7 +2,7 @@
 var Redis = require('ioredis');
 
 var options = {
-  "host": "test-clstr-enabled-2.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
+  "host": "test-clstr-enabled-3.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
