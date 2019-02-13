@@ -3,7 +3,7 @@ var RedisClustr = require('redis-clustr');
 var redis = new RedisClustr({
   servers: [
     {
-      host: 'test-clstr-enabled-3.dwnzoe.clustercfg.usw2.cache.amazonaws.com',
+      host: 'test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com',
       port: 6379
     }
   ]
