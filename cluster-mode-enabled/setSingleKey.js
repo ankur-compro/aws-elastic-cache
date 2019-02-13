@@ -28,7 +28,7 @@ var timestamp = Date.now();
 
 setInterval(
   function() {
-    redis.set(redisKey + ':' + Date.now(), timestamp, function(err, response) {
+    client.set(redisKey + ':' + Date.now(), timestamp, function(err, response) {
       if(err) {
         console.log('error while setting redis key');
         console.log(err);
