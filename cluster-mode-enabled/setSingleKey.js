@@ -2,7 +2,8 @@ var redis = require("redis");
 
 var options = {
   "host": "test-clstr-enabled-2.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
-  "port": 6379
+  "port": 6379,
+  "cluster-enabled": true
 };
 
 console.log('Creating Redis Client');
