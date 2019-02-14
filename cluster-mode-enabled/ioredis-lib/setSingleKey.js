@@ -30,13 +30,13 @@ console.log(redisKey);
 setInterval(setRedisKey, 1000);
 function setRedisKey() {
   var timestamp = Date.now();
-  redisKey = redisKey + Date.now()
-  redis.set(redisKey, timestamp, function(err, response) {
+  var setRedisKey = redisKey + Date.now();
+  redis.set(setRedisKey, timestamp, function(err, response) {
     if(err) {
       console.log('error while setting redis key');
       console.log(err);
     } else {
-      console.log('SET Redis Key : ' + redisKey);
+      console.log('SET Redis Key : ' + setRedisKey);
       console.log('SET Redis Value : ' + timestamp);
     }
   });
