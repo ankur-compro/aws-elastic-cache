@@ -32,7 +32,7 @@ setInterval(function() {
       console.log('error while getting redis key');
       console.log(err);
     } else {
-      console.log('GET Redis Key : ' + response);
+      console.log('GET Redis Key : ' + response + ' @ ' + Date.now());
     }
   });
 }, 500);
