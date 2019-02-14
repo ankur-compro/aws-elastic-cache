@@ -28,6 +28,7 @@ var redisKey = 's:cluster-enabled:config:1';
 console.log(redisKey);
  
 var setRedisKey = redisKey;
+var timestamp = Date.now();
 redis.set(setRedisKey, timestamp, function(err, response) { 
   if(err) {
     console.log('error while setting redis key');
