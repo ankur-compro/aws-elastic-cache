@@ -37,7 +37,7 @@ function setRedisKey() {
       console.log(err);
     } else {
       console.log('SET Redis Key : ' + redisKey);
-      onsole.log('SET Redis Value : ' + timestamp);
+      console.log('SET Redis Value : ' + timestamp);
     }
   });
 }
