@@ -27,7 +27,7 @@ console.log(redisKey);
  
 
 
-setInterval(setRedisKey(), 1000);
+setInterval(setRedisKey, 1000);
 function setRedisKey() {
   var timestamp = Date.now();
   redisKey = redisKey + Date.now()
