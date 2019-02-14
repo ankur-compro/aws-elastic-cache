@@ -24,7 +24,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:cluster-enabled:config:1';
+var redisKey = 's:cluster-enabled:config:shard-3';
 console.log(redisKey);
  
 var setRedisKey = redisKey;
