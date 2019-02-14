@@ -8,10 +8,7 @@ var options = {
 
 //var redis = new Redis(options);
 
-var redis = new Redis.Cluster([{
-  port: 6379,
-  host: 'test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com'
-}]);
+var redis = new Redis.Cluster([options]);
 
 console.log('Creating Redis Client');
 
