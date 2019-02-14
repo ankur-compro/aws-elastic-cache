@@ -2,11 +2,16 @@
 var Redis = require('ioredis');
 
 var options = {
-  "host": "test-clstr-enabled-3.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
+  "host": "test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
-var redis = new Redis(options);
+//var redis = new Redis(options);
+
+var redis = new Redis.Cluster([{
+  port: 6379,
+  host: 'test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com'
+}]);
 
 console.log('Creating Redis Client');
 
@@ -22,7 +27,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:cluster-enabled-2:config:1';
+var redisKey = 's:cluster-enabled:config:1';
 console.log(redisKey);
  
 var timestamp = Date.now();
