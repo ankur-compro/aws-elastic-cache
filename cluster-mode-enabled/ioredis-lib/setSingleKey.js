@@ -27,22 +27,17 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:cluster-enabled-2:config:1';
+var redisKey = 's:cluster-enabled:config:1';
 console.log(redisKey);
  
+var setRedisKey = redisKey;
+redis.set(setRedisKey, timestamp, function(err, response) { 
+  if(err) {
+    console.log('error while setting redis key');
+    console.log(err);
+  } else {
+    console.log('SET Redis Key : ' + setRedisKey);
+    console.log('SET Redis Value : ' + timestamp);
+  }
+});
 
-
-setInterval(setRedisKey, 1000);
-function setRedisKey() {
-  var timestamp = Date.now();
-  var setRedisKey = redisKey + Date.now();
-  redis.set(setRedisKey, timestamp, function(err, response) {
-    if(err) {
-      console.log('error while setting redis key');
-      console.log(err);
-    } else {
-      console.log('SET Redis Key : ' + setRedisKey);
-      console.log('SET Redis Value : ' + timestamp);
-    }
-  });
-}
