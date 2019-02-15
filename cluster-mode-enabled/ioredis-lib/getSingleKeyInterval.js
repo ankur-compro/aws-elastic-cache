@@ -23,7 +23,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:cluster-enabled:config:shard-3';
+var redisKey = 's:baljinder';
 console.log(redisKey);
  
 setInterval(function() {
