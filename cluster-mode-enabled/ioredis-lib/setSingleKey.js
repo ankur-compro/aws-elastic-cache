@@ -2,7 +2,7 @@
 var Redis = require('ioredis');
 
 var options = {
-  "host": "test-cluster-enabled-0002-001.dwnzoe.0001.usw2.cache.amazonaws.com",
+  "host": "test-cluster-enabled-0003-001.dwnzoe.0001.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
@@ -24,18 +24,18 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:noorul:nabi';
+var redisKey = 's:baljinder:singh';
 console.log(redisKey);
  
 var setRedisKey = redisKey;
 var timestamp = Date.now();
-redis.set(setRedisKey, 'nabi', function(err, response) { 
+redis.set(setRedisKey, 'singh', function(err, response) { 
   if(err) {
     console.log('error while setting redis key');
     console.log(err);
   } else {
     console.log('SET Redis Key : ' + setRedisKey);
-    console.log('SET Redis Value : ' + 'nabi');
+    console.log('SET Redis Value : ' + 'singh');
   }
 });
 
