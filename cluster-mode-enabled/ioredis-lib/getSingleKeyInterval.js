@@ -23,7 +23,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:baljinder';
+var redisKey = 's:baljinder:meenu';
 console.log(redisKey);
  
 setInterval(function() {
@@ -32,7 +32,7 @@ setInterval(function() {
       console.log('error while getting redis key');
       console.log(err);
     } else {
-      console.log('GET Redis Key : ' + response + ' @ ' + Date.now());
+      console.log('GET Redis Key : ' + redisKey + '. Response: ' +  response + ' @ ' + Date.now());
     }
   });
 }, 500);
