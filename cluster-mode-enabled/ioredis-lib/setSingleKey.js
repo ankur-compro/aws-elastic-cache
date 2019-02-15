@@ -24,7 +24,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:baljinder:meenu';
+var redisKey = 's:baljinder';
 console.log(redisKey);
  
 var setRedisKey = redisKey;
