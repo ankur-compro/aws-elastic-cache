@@ -1,7 +1,7 @@
 var Redis = require('ioredis');
 
 var options = {
-  "host": "test-cluster-enabled-0003-001.dwnzoe.0001.usw2.cache.amazonaws.com",
+  "host": "test-cluster-enabled.dwnzoe.clustercfg.usw2.cache.amazonaws.com",
   "port": 6379
 };
 
@@ -23,7 +23,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:baljinder:meenu';
+var redisKey = 's:baljinder:singh';
 console.log(redisKey);
  
 setInterval(function() {
