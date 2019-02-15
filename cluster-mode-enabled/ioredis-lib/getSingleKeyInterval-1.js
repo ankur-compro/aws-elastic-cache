@@ -23,7 +23,7 @@ redis.on('ready', function() {
   console.log('Redis ready event');
 });
 
-var redisKey = 's:baljinder';
+var redisKey = 's:anupam:sharma';
 console.log(redisKey);
  
 setInterval(function() {
