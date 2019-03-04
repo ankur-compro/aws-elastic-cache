@@ -1,15 +1,19 @@
 var redis = require("redis");
- 
-//var redisBatch = new RedisBatch(redis, { flushAfter: 3000 });
 
-
-//var _und = require('underscore');
 var options = {
-  "host": "thor-analytics.dwnzoe.ng.0001.usw2.cache.amazonaws.com",
-  "port": 6379
+  "host": "",
+  "port": 
 };
 
 var client = redis.createClient(options.port, options.host);
+if(options.password) {
+  client.auth(options.password, function(err) {
+      if(err) {
+        console.log(err, { stats: 'count#redis.' + host + '~~' + type + '.connection.failed=1' },
+         'Error while Authenticating to Redis Server for ' + type);
+      }
+    });
+}
 
 client.on('error', function (err) {
     console.log('Error ' + err);
