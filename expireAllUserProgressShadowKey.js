@@ -6,10 +6,18 @@ var redis = require("redis");
 //var _und = require('underscore');
 var options = {
   "host": "",
-  "port": 6379
+  "port": 
 };
 
 var client = redis.createClient(options.port, options.host);
+if(options.password) {
+  client.auth(options.password, function(err) {
+      if(err) {
+        console.log(err, { stats: 'count#redis.' + host + '~~' + type + '.connection.failed=1' },
+         'Error while Authenticating to Redis Server for ' + type);
+      }
+    });
+}
 
 client.on('error', function (err) {
     console.log('Error ' + err);
