@@ -1,9 +1,5 @@
 var redis = require("redis");
  
-//var redisBatch = new RedisBatch(redis, { flushAfter: 3000 });
-
-
-//var _und = require('underscore');
 var options = {
   "host": "",
   "port": 
