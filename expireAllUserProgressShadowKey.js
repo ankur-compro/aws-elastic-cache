@@ -1,4 +1,6 @@
 var redis = require("redis");
+
+var orgName = '';
  
 var options = {
   "host": "",
@@ -27,7 +29,7 @@ client.on('ready', function() {
   console.log('Redis ready event');
 });
 
-client.keys('s:anal:integ-test1-alpha:analytics:user:*', function(err, keys) {
+client.keys('s:anal:' + orgName + ':analytics:user:*', function(err, keys) {
   if (err) {
     console.log('err');
     console.log(err);
