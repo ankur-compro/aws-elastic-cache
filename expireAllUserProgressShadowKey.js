@@ -34,9 +34,11 @@ client.keys('s:anal:' + orgName + ':analytics:user:*', function(err, keys) {
     console.log('err');
     console.log(err);
   }
+ else {
   console.log('Total Keys');
   console.log(keys.length);
   expireKey(keys);
+ }
 });
 
 
