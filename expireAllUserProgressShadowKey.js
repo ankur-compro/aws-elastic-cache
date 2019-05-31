@@ -1,6 +1,6 @@
 var redis = require("redis");
 
-var orgName = '';
+var orgName = '*';
  
 var options = {
   "host": "",
