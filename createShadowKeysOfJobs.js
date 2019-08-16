@@ -26,16 +26,16 @@ client.on('connect', function() {
 
 client.on('ready', function() {
   console.log('Redis ready event');
-});
 
-client.keys('s:auth:org:*:job:*', function(err, keys) {
-  if (err) {
-    console.log('err');
-    console.log(err);
-  }
-  console.log('Total Keys');
-  console.log(keys.length);
-  expireKey(keys);
+  client.keys('s:auth:org:*:job:*', function(err, keys) {
+    if (err) {
+      console.log('err');
+      console.log(err);
+    }
+    console.log('Total Keys');
+    console.log(keys.length);
+    expireKey(keys);
+  });
 });
 
 
