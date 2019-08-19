@@ -6,6 +6,8 @@ var options = {
   'password': ''
 };
 
+var jobShadowTTL = 60 * 10;
+
 var client = redis.createClient(options.port, options.host);
 if(options.password) {
   client.auth(options.password, function(err) {
@@ -44,7 +46,7 @@ function expireKey(keys) {
     var jobKey = keys.pop();
     var jobExpireKey = 'i:' + jobKey;
     console.log(' job which is going to expire: ' + jobExpireKey);
-    client.setex(jobExpireKey, (60*60*24*7), '', function(err) {
+    client.setex(jobExpireKey, (jobShadowTTL), '', function(err) {
       if(err) {
         console.log('err');
         console.log(err);
