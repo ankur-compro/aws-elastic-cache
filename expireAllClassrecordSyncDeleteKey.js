@@ -4,7 +4,8 @@ var options = {
   "host": "",
   "port": 
 };
-
+var timeoutDelay = 1000;
+  
 var client = redis.createClient(options.port, options.host);
 if(options.password) {
   client.auth(options.password, function(err) {
@@ -55,7 +56,7 @@ function expireKey(keys) {
       else {
         console.log('Key: ' + classrecordKey + ' has expired.');
         console.log('Keys left to expire: ' + keys.length);
-        setTimeout(function() { expireKey(keys); }, 5000);
+        setTimeout(function() { expireKey(keys); }, timeoutDelay);
       }
     });
   }
