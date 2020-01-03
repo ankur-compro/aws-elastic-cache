@@ -7,12 +7,11 @@
 var redis = require("redis");
 var async = require('async');
 var fs = require('fs');
-var Q = require("Q");
+var Q = require("q");
 
 var options = {
   "host": "",
-  "port": 0,
-  "password": "" 
+  "port": 6379
 };
 
 var client = redis.createClient(options.port, options.host);
@@ -22,7 +21,10 @@ function getAllKeys(pattern) {
 
   client.keys(pattern, function(err, keys) {
     if(err) { deferred.reject(err); }
-    else { deferred.resolve(keys); }
+    else { 
+        console.log('total keys: ' + keys.length);
+	deferred.resolve(keys);
+    }
   });
 
   return deferred.promise;
@@ -62,8 +64,8 @@ function writeDataToFile(data) {
   return deferred.promise;   
 }
 
-var keyPattern = 's:anal:dev1:*classrecord*items';
-getAllKeys(pattern)
+var keyPattern = 's:anal:*userstate';
+getAllKeys(keyPattern)
 .then(getAllData)
 .then(writeDataToFile)
 .then(function(file) { console.log('data written successfully to file: ' + file); })

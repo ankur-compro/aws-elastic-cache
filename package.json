@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/ankur-compro/aws-elastic-cache#readme",
   "dependencies": {
-    "redis": "2.8.0",
+    "async": "^3.1.0",
+    "aws-sdk": "*",
     "foreman": "1.4.1",
     "ioredis": "4.6.2",
-    "redis-clustr": "1.6.0",
-    "aws-sdk": "*"
+    "q": "^1.5.1",
+    "redis": "^2.8.0",
+    "redis-clustr": "1.6.0"
   }
 }
