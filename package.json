@@ -20,7 +20,7 @@
   "dependencies": {
     "async": "^3.1.0",
     "aws-sdk": "*",
-    "foreman": "1.4.1",
+    "foreman": "3.0.1",
     "ioredis": "4.6.2",
     "q": "^1.5.1",
     "redis": "^2.8.0",
