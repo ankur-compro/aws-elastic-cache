@@ -24,6 +24,7 @@
     "ioredis": "4.6.2",
     "q": "^1.5.1",
     "redis": "^2.8.0",
-    "redis-clustr": "1.6.0"
+    "redis-clustr": "1.6.0",
+    "request-promise": "*"
   }
 }
