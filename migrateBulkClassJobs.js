@@ -54,7 +54,7 @@ function fetchJobsFromBAASAndCreateInDDB(orgId, cursor, count = 0) {
     uri: baasURL + '/' + orgId + '/default/jobs',
     qs: {
       ql: "itype='class_bulk_enrollment_association' && created >= " + dateNow + " order by created desc",
-      limit: 1,
+      limit: 25,
       access_token: token,
     }
   };
