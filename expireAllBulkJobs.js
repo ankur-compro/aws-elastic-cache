@@ -1,11 +1,12 @@
 var redis = require("redis");
 
 var options = {
-  "host": "",
-  "port": ""
+  "host": "redis-13833.c12.us-east-1-4.ec2.cloud.redislabs.com",
+  "port": "13833",
+  "password": "comprodls"
 };
 
-var timeoutDelay = 1000;
+var timeoutDelay = 100;
 
 var client = redis.createClient(options.port, options.host);
 if(options.password) {
@@ -44,9 +45,9 @@ function expireKey(keys) {
   if(keys.length) {
     var jobKey = keys.pop();
     client.hget(jobKey, 'status', function(err, status) {
-      if(!err && status !== 'completed') {
-        client.setex( i + ':' + jobKey, 1, '', function(err) {
-          if(err) { console.log(err); }
+      if(!err && status === 'completed') {
+        client.setex( 'i:' + jobKey, 1, '', function(err) {
+          if(err) { console.log("err while exping key: "+jobKey); }
           else {
             console.log('Key: ' + jobKey + ' has expired.');
             console.log('Keys left to expire: ' + keys.length);
@@ -55,7 +56,7 @@ function expireKey(keys) {
         });
       }
       else {
-        console.log('err or status for key: ' + jobKey, err, status);
+        expireKey(keys);
       }
     });
   }
