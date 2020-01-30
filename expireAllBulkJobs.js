@@ -1,9 +1,9 @@
 var redis = require("redis");
 
 var options = {
-  "host": "redis-13833.c12.us-east-1-4.ec2.cloud.redislabs.com",
-  "port": "13833",
-  "password": "comprodls"
+  "host": process.env.REDIS_HOST,
+  "port": process.env.REDIS_PORT,
+  "password": process.env.REDIS_PASSWORD
 };
 
 var timeoutDelay = 100;
@@ -12,8 +12,8 @@ var client = redis.createClient(options.port, options.host);
 if(options.password) {
   client.auth(options.password, function(err) {
       if(err) {
-        console.log(err, { stats: 'count#redis.' + host + '~~' + type + '.connection.failed=1' },
-         'Error while Authenticating to Redis Server for ' + type);
+        console.log(err, { stats: 'count#redis.' + options.host + '~~' + 'core' + '.connection.failed=1' },
+         'Error while Authenticating to Redis Server for core');
       }
     });
 }
@@ -28,17 +28,17 @@ client.on('connect', function() {
 
 client.on('ready', function() {
   console.log('Redis ready event');
+  client.keys('s:auth:org:*job*', function(err, keys) {
+    if (err) {
+      console.log('err');
+      console.log(err);
+    }
+    console.log('Total Keys');
+    console.log(keys.length);
+    expireKey(keys);
+  });
 });
 
-client.keys('s:auth:org:*job*', function(err, keys) {
-  if (err) {
-    console.log('err');
-    console.log(err);
-  }
-  console.log('Total Keys');
-  console.log(keys.length);
-  expireKey(keys);
-});
 
 
 function expireKey(keys) {
