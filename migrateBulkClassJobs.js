@@ -10,24 +10,26 @@ var token = process.env.TOKEN;
 
 var dynamoClient = new AWS.DynamoDB.DocumentClient({
   apiVersion: '2012-08-10',
-  region: process.env.AWS_REGION,
+  region: process.env.AWS_REGION || 'us-east-1',
   accessKeyId: process.env.REALM_DYNAMODB_DATA_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REALM_DYNAMODB_DATA_SECRET_ACCESS_KEY
+  secretAccessKey: process.env.REALM_DYNAMODB_DATA_SECRET_ACCESS_KEY,
+  sslEnabled: true,
+  convertEmptyValues: true
 });
 
-var listOfOrgs = []; //[o1, o2]
+var listOfOrgs = ['dev1', 'inst-dev-1']; //[o1, o2]
 
 async.eachSeries(listOfOrgs, function(orgId, next) {
   fetchJobsFromBAASAndCreateInDDB(orgId)
-  .then(function() {
+  .then(function(count) {
     console.log('*****************************************************************');
-    console.log('Jobs migrated for org: ' + orgId);
+    console.log('Total Jobs migrated for org: ' + orgId + ' count: ' + count);
     console.log('*****************************************************************');
     next();
   })
   .catch(function(err) {
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-    console.log('Job Migration Failed for org ' + orgId);
+    console.log('Job Migration Failed for org ' + orgId, err);
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
     next(err);
   });
@@ -35,7 +37,7 @@ async.eachSeries(listOfOrgs, function(orgId, next) {
 function(err) {
   if(err) {
     console.log('###############################################################');
-    console.log('Error while migrating job, migration aborted');
+    console.log('Error while migrating job, migration aborted', err);
     console.log('###############################################################');
   }
   else {
@@ -46,14 +48,13 @@ function(err) {
 });
 
 
-function fetchJobsFromBAASAndCreateInDDB(orgId, cursor) {
+function fetchJobsFromBAASAndCreateInDDB(orgId, cursor, count = 0) {
   var deferred = Q.defer();
   var options = {
-    method: 'GET',
     uri: baasURL + '/' + orgId + '/default/jobs',
     qs: {
-      ql: "itype='class_bulk_enrollment_association' && created >= {dateNow} order by created desc",
-      limit: 25,
+      ql: "itype='class_bulk_enrollment_association' && created >= " + dateNow + " order by created desc",
+      limit: 1,
       access_token: token,
     }
   };
@@ -62,20 +63,28 @@ function fetchJobsFromBAASAndCreateInDDB(orgId, cursor) {
 
   request(options)
   .then(function transformBAASJobsIn(response) {
+    response = JSON.parse(response);
     var jobs = response.entities;
+    count += jobs.length;
     cursor = response.cursor;
-    return transformJobs(orgId, jobs);
+    if(jobs.length) {
+      return transformJobs(orgId, jobs);
+    }
+    else { cursor = null; }
   })
   .then(function createJobsInDDB(jobs) {
-    return batchWriteJobsInDDB(jobs);
+    if(jobs && jobs.length) {
+      return batchWriteJobsInDDB(jobs);
+    }
   })
   .then(function() {
     if(cursor) {
       console.log('Going to fetch jobs with next cursor for org ' + orgId);
-      return fetchJobsFromBAASAndCreateInDDB(orgId, cursor);
+      return fetchJobsFromBAASAndCreateInDDB(orgId, cursor, count);
     }
+    else { return count; }
   })
-  .then(function() { deferred.resolve(); })
+  .then(function(count) { deferred.resolve(count); })
   .catch(function(err) { deferred.reject(err); });
 
   return deferred.promise;
@@ -84,13 +93,17 @@ function fetchJobsFromBAASAndCreateInDDB(orgId, cursor) {
 function batchWriteJobsInDDB(items) {
   var deferred = Q.defer();
 
-  var params = {
-    RequestItems: {
-      [jobsTable]: items
-    }
-  };
-
-  dynamoClient.batchWrite(params, function(err) {
+  //put items in parallel, its like calling put in a for loop over items.
+  async.each(items, function(item, next) {
+    var options = {
+      TableName: jobsTable,
+      Item: item
+    };
+    dynamoClient.put(options, function(err) {
+      if(err) { next(err); }
+      else { next(); }
+    });
+  }, function(err) {
     if(err) { deferred.reject(err); }
     else { deferred.resolve(); }
   });
@@ -105,10 +118,14 @@ function transformJobs(orgid, jobs) {
     var userid = job.class_bulk_enrollment_association.context.userid;
     getUserExUserId(orgid, userid)
     .then(function(extUserId) {
+      job.class_bulk_enrollment_association.context.extUserId = extUserId;
       job.pk = process.env.ACCOUNT + '#' + extUserId;
       job.sk = 'class_bulk_enrollment_association' + '#' + job.uuid;
       job.ttl = 60*24*60*60;
       job.jobid = job.uuid;
+      job.org = orgid;
+      job.account = process.env.ACCOUNT;
+      job.created_by = extUserId;
       delete job.uuid;
       delete job.type;
       delete job.metadata;
@@ -128,13 +145,13 @@ function getUserExUserId(orgid, userid) {
   var deferred = Q.defer();
 
   request({
-    method: 'GET',
     uri: baasURL + '/' + orgid + '/default/users/' + userid,
     qs: {
       access_token: token
     }
   })
   .then(function(user) {
+    user = JSON.parse(user);
     deferred.resolve(user.ext_user_id || 'builder-' + userid);
   })
   .catch(function(err) { deferred.reject(err); });
