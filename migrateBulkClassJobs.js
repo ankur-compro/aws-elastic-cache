@@ -121,7 +121,7 @@ function transformJobs(orgid, jobs) {
       job.class_bulk_enrollment_association.context.extUserId = extUserId;
       job.pk = process.env.ACCOUNT + '#' + extUserId;
       job.sk = 'class_bulk_enrollment_association' + '#' + job.uuid;
-      job.ttl = Date.now() + 60*24*60*60*1000;
+      job.ttl = Math.ceil((Date.now() + 60*24*60*60*1000)/1000);
       job.jobid = job.uuid;
       job.org = orgid;
       job.account = process.env.ACCOUNT;
