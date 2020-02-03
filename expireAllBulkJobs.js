@@ -28,7 +28,7 @@ client.on('connect', function() {
 
 client.on('ready', function() {
   console.log('Redis ready event');
-  client.keys('s:auth:org:*job*', function(err, keys) {
+  client.keys('s:*job*', function(err, keys) {
     if (err) {
       console.log('err');
       console.log(err);
