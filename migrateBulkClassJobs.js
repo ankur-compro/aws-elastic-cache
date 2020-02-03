@@ -5,7 +5,7 @@ var AWS = require('aws-sdk');
 
 var baasURL = process.env.BAAS_URL;
 var dateNow = Date.now()-61*24*60*60*1000; //two months earlier date.
-var jobsTable = 'Realm_' + process.env.REALM + '.' + process.env.ENVIRONMENT + '_jobs';
+var jobsTable = 'Realm_' + process.env.REALM + '.' + process.env.ENVIRONMENT + '_jobsldfjkldf';
 var token = process.env.TOKEN;
 
 var dynamoClient = new AWS.DynamoDB.DocumentClient({
@@ -104,6 +104,7 @@ function batchWriteJobsInDDB(items) {
       else { next(); }
     });
   }, function(err) {
+    console.log('aaaaaaaaaaaaaaa', err);
     if(err) { deferred.reject(err); }
     else { deferred.resolve(); }
   });
@@ -156,7 +157,7 @@ function getUserExUserId(orgid, userid) {
     }
   })
   .then(function(user) {
-    user = JSON.parse(user);
+    user = user.entities[0];
     deferred.resolve(user.ext_user_id);
   })
   .catch(function(err) { deferred.reject(err); });
