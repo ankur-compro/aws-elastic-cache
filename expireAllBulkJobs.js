@@ -44,8 +44,8 @@ client.on('ready', function() {
 function expireKey(keys) {
   if(keys.length) {
     var jobKey = keys.pop();
-    client.hget(jobKey, 'status', function(err, status) {
-      if(!err && status === 'completed') {
+    client.hmget(jobKey, ['status', 'itype'], function(err, hashObj) {
+      if(!err && (hashObj.status === 'completed' || hashObj.itype.startsWith('pub'))) {
         client.setex( 'i:' + jobKey, 1, '', function(err) {
           if(err) { console.log("err while exping key: "+jobKey); }
           else {
