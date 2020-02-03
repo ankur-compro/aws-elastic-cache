@@ -118,6 +118,11 @@ function transformJobs(orgid, jobs) {
     var userid = job.class_bulk_enrollment_association.context.userid;
     getUserExUserId(orgid, userid)
     .then(function(extUserId) {
+      if(!extUserId) {
+        console.log('>>>>>>>>>>>>>>>> ext_user_id not found for user: ' + userid + ' org ' +
+                    orgid + ' jobid ' + job.uuid + ' <<<<<<<<<<<<<<<<<<<<');
+        return next();
+      }
       job.class_bulk_enrollment_association.context.extUserId = extUserId;
       job.pk = process.env.ACCOUNT + '#' + extUserId;
       job.sk = 'class_bulk_enrollment_association' + '#' + job.uuid;
@@ -152,7 +157,7 @@ function getUserExUserId(orgid, userid) {
   })
   .then(function(user) {
     user = JSON.parse(user);
-    deferred.resolve(user.ext_user_id || 'builder-' + userid);
+    deferred.resolve(user.ext_user_id);
   })
   .catch(function(err) { deferred.reject(err); });
 
