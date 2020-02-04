@@ -1,3 +1,19 @@
+/**
+ * These envs are super set for both scripts(job expiry & migration)
+ *
+ *   export REDIS_HOST=
+ *   export REDIS_PORT=
+ *   export BAAS_URL=
+ *   export ACCOUNT=
+ *   export REALM=
+ *   export ENVIRONMENT=
+ *   export TOKEN=
+ *   export AWS_REGION=
+ *   export REALM_DYNAMODB_DATA_ACCESS_KEY_ID=
+ *   export REALM_DYNAMODB_DATA_SECRET_ACCESS_KEY=
+ *
+ */
+
 var redis = require("redis");
 
 var options = {
