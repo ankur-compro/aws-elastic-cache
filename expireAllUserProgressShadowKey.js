@@ -67,5 +67,6 @@ function expireKey(keys) {
   }
   else {
     console.log('***********All Keys expired successfully**********');
+    process.exit();
   }
 }
